@@ -1,7 +1,7 @@
 package main
 
 import (
-	"cleanly/tools"
+	"github.com/thecatthatflies/cleanly/tools"
 	"fmt"
 	"os"
 	"os/exec"

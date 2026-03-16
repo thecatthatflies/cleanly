@@ -1,7 +1,7 @@
 package tools
 
 import (
-	"cleanly/config"
+	"github.com/thecatthatflies/cleanly/config"
 	"os"
 	"path/filepath"
 	"strings"
