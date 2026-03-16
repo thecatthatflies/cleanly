@@ -2,7 +2,7 @@
 
 set -e
 
-echo "building cleanly..."
+echo "installing cleanly..."
 go build -o cleanly .
 
 echo "installing to /usr/local/bin..."
