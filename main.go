@@ -4,6 +4,7 @@ import (
 	"cleanly/tools"
 	"fmt"
 	"os"
+	"os/exec"
 )
 
 func main() {
@@ -20,6 +21,19 @@ func main() {
 
 			categories:
   			images, audio, video, documents, archives, apps, data, code, other`)
+		return
+	}
+	if len(os.Args) > 1 && os.Args[1] == "update" {
+		fmt.Println("updating cleanly...")
+		cmd := exec.Command("go", "install", "github.com/thecatthatflies/cleanly@latest")
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+		err := cmd.Run()
+		if err != nil {
+			fmt.Println("update failed:", err)
+			os.Exit(1)
+		}
+		fmt.Println("updated.")
 		return
 	}
 	input := tools.ParseInput()
