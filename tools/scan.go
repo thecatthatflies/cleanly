@@ -5,11 +5,10 @@ import (
 	"os"
 )
 
-func scan(path string) []os.DirEntry {
-
+func Scan(path string) []os.DirEntry {
 	files, err := os.ReadDir(path)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("error reading directory:", err)
 	}
 	return files
 }
