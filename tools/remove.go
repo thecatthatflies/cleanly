@@ -1,9 +1,9 @@
 package tools
 
 import (
-	"github.com/thecatthatflies/cleanly/config"
 	"encoding/json"
 	"fmt"
+	"github.com/thecatthatflies/cleanly/config"
 	"os"
 	"path/filepath"
 	"strings"
@@ -50,7 +50,7 @@ func Remove(args []string) {
 			}
 		case "-c":
 			for _, t := range targets {
-				   if category != "" && strings.EqualFold(strings.TrimSpace(category), strings.TrimSpace(t)) {
+				if category != "" && strings.EqualFold(strings.TrimSpace(category), strings.TrimSpace(t)) {
 					toDelete = append(toDelete, file.Name())
 				}
 			}

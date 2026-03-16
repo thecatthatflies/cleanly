@@ -12,6 +12,7 @@ func Identify(files []os.DirEntry, filterCategories []string) map[string]string 
 
 	for _, file := range files {
 		if file.IsDir() {
+			result[file.Name()] = "Folders"
 			continue
 		}
 
