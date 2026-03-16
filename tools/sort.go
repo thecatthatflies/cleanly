@@ -87,6 +87,20 @@ func Undo() error {
 		fmt.Printf("  restored %s\n", filepath.Base(entry.From))
 	}
 
+	seen := map[string]bool{}
+	for _, entry := range lastRun.Entries {
+		folder := filepath.Dir(entry.To)
+		if seen[folder] {
+			continue
+		}
+		seen[folder] = true
+
+		contents, err := os.ReadDir(folder)
+		if err == nil && len(contents) == 0 {
+			os.Remove(folder)
+		}
+	}
+
 	history = history[:len(history)-1]
 	out, _ := json.MarshalIndent(history, "", "  ")
 	os.WriteFile(historyPath, out, 0644)
