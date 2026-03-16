@@ -9,21 +9,27 @@ import (
 )
 
 func main() {
+	handleVersion()
 
 	if len(os.Args) > 1 && (os.Args[1] == "help" || os.Args[1] == "-h") {
 		fmt.Println(`cleanly — sort any folder by file type
 
 usage:
-	cleanly .                   sort current directory
-	cleanly ~/Downloads         sort a specific folder
-  	cleanly . -c "images audio" only sort specific categories
-  	cleanly --no-clean          skip cleanup verification
-  	cleanly --undo              reverse the last sort
+  cleanly .                    sort current directory
+  cleanly ~/Downloads          sort a specific folder
+  cleanly . -c "images audio"  only sort specific categories
+  cleanly --no-clean           skip cleanup verification
+  cleanly --undo               reverse the last sort
+  cleanly remove -f png jpeg   trash files by extension
+  cleanly remove -c images     trash files by category
+  cleanly update               update to latest version
+  cleanly -v                   print version
 
 categories:
-  	images, audio, video, documents, archives, apps, data, code, other`)
+  images, audio, video, documents, archives, apps, data, code, other`)
 		return
 	}
+
 	if len(os.Args) > 1 && os.Args[1] == "update" {
 		fmt.Print("updating cleanly")
 		done := make(chan bool)
@@ -53,23 +59,12 @@ categories:
 		fmt.Println("updated.")
 		return
 	}
-	if len(os.Args) > 1 && os.Args[1] == "update" {
-		fmt.Println("updating cleanly...")
-		cmd := exec.Command("go", "install", "github.com/thecatthatflies/cleanly@latest")
-		cmd.Stdout = os.Stdout
-		cmd.Stderr = os.Stderr
-		err := cmd.Run()
-		if err != nil {
-			fmt.Println("update failed:", err)
-			os.Exit(1)
-		}
-		fmt.Println("updated.")
-		return
-	}
+
 	if len(os.Args) > 1 && os.Args[1] == "remove" {
 		tools.Remove(os.Args[2:])
 		return
 	}
+
 	input := tools.ParseInput()
 
 	if input.Undo {
